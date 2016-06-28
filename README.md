@@ -18,7 +18,7 @@ This plug-in is protected under the [Eclipse Public 1.0 License](http://www.ecli
 	your own changes to the plugin.
 
 ### History
-    Version 3
+    Version 4
         Community GitHub Release
  
 ### How to build the plugin from eclipse client:

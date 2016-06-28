@@ -2,7 +2,7 @@
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
   <header>
-    <identifier id="UCD_Siebel_JDB_DS" name="Siebel 8.x UCD plugin" version="3"/>
+    <identifier id="UCD_Siebel_JDB_DS" name="Siebel 8.x UCD plugin" version="4"/>
     <description>Siebel 8.x UCD plugin</description>
     <tag>Application Server/Siebel 8.x</tag>
     <server:plugin-type>Automation</server:plugin-type>

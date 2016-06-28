@@ -105,7 +105,7 @@
     <meta content="asdfasdf" name="keywords"/>  
   </meta-html>
     
-  <release-version>3</release-version>
+  <release-version>4</release-version>
 
   <release-notes>
     <!--
@@ -127,7 +127,7 @@
 	  <release-note plugin-version="2">
 
 	  </release-note>
-	  <release-note plugin-version="3">
+	  <release-note plugin-version="4">
         GitHub Community Release
 	  </release-note>
     

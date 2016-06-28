@@ -14,7 +14,7 @@
 		<property name="project" value="Siebel 8.x UCD Plugin" />
 
         <property name="version" value="dev"/>  <!-- default -->
-		<property name="deployPluginArchiveName" value="releases/UCDSiebelPlugin_v${version}.zip" />
+		<property name="deployPluginArchiveName" value="releases/Siebel-UCD v${version}.zip" />
 		
 		<property name="src.dir" value="${basedir}/src" />
 		<property name="build.dir" value="${basedir}/build" />
