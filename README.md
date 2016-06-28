@@ -2,13 +2,8 @@
 ---
 Note: This is not the plugin distributable! This is the source code. To find the installable plugin, go into the 'Releases' tab, and download a stable version.
 
-/**
- * © Copyright IBM Corporation 2015.  
- * This is licensed under the following license.
- * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
- * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp. 
- */
-
+### License
+    This plug-in is protected under the [Eclipse Public 1.0 License](http://www.eclipse.org/legal/epl-v10.html)
 ### Compatibility
 	The IBM UrbanCode Deploy automation plug-in works with Siebel version 8.X.
 	This plug-in requires version 6.1.1 or later of IBM UrbanCode Deploy.
