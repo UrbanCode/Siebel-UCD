@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plugin-upgrade xmlns="http://www.urbancode.com/UpgradeXMLSchema_v1" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- The purpose of plugin.xml is to provide upgrade paths when the plugin version is changed.
+       If the upgrade paths are specified correctly, users will be upgraded to the new version 
+       without interruption. -->
+</plugin-upgrade>

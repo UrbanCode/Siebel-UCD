@@ -1,0 +1,88 @@
+<!--
+
+/**
+ * © Copyright IBM Corporation 2014.  
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp. 
+ */
+
+-->
+
+	<project name="Siebel 8.x UCD Plugin" default="main" basedir=".">
+
+		<property name="project" value="Siebel 8.x UCD Plugin" />
+
+        <property name="version" value="dev"/>  <!-- default -->
+		<property name="deployPluginArchiveName" value="releases/UCDSiebelPlugin_v${version}.zip" />
+		
+		<property name="src.dir" value="${basedir}/src" />
+		<property name="build.dir" value="${basedir}/build" />
+		<property name="plugin.dir" value="${basedir}/plugin" />
+		<property name="license.dir" value="${basedir}/license" />
+		<property name="doc.dir" value="${basedir}/doc" />
+		<property name="lib.dir" value="${basedir}/lib" />
+		<property name="scripts.dir" value="${basedir}/scripts" />
+		<property name="imports.dir" value="${basedir}/imports" />
+		
+		<target name="main" depends="clean, copyDependencies, compileBinary, buildZip" />
+
+		<target name="compileBinary">
+			<javac debug="true" destdir="${build.dir}" target="1.6" source="1.6" includeantruntime="false">
+				<src path="${src.dir}" />
+			</javac>
+			<jar destfile="${build.dir}/lib/UCDSiebelPlugin.jar" basedir="${build.dir}/classes" />
+		</target>
+				
+		<!-- Copy in the dependencies -->
+		<target name="copyDependencies">
+
+			<!-- inputs (info, upgrade) -->
+			<copy todir="${build.dir}">
+				<fileset dir="${plugin.dir}">
+				</fileset>
+			</copy>
+									
+			<copy todir="${build.dir}">
+				<fileset dir="${scripts.dir}">					
+				</fileset>
+			</copy>
+					
+			<mkdir dir="${build.dir}/classes"/>
+			<!-- copy groocy classes -->
+			<copy todir="${build.dir}/classes">
+				<fileset dir="${src.dir}">
+				</fileset>
+			</copy>
+
+			<mkdir dir="${build.dir}/lib"/>
+			<!-- copy license -->
+			<copy todir="${build.dir}/lib">
+				<fileset dir="${lib.dir}">
+				</fileset>
+			</copy>
+			
+			<mkdir dir="${build.dir}/doc"/>
+			<!-- copy license -->
+			<copy todir="${build.dir}/doc">
+				<fileset dir="${doc.dir}">
+					<include name="HowTo.html" />
+					<include name="UCD Siebel Plugin DesignDocument.pdf" />
+				</fileset>
+			</copy>
+			
+		</target>
+
+		<!-- Build the actual zip file that gets uploaded to uDeploy -->
+		<target name="buildZip">
+			<zip destfile="${deployPluginArchiveName}" basedir="${build.dir}" update="false"/>
+		</target>
+
+		<!-- Clean up the build directory -->
+		<target name="clean">
+			<delete dir="build" />
+			<mkdir dir="build" />
+			<delete file="${deployPluginArchiveName}" />
+		</target>
+
+	</project>

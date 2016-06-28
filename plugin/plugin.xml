@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <header>
+    <identifier id="UCD_Siebel_JDB_DS" name="Siebel 8.x UCD plugin" version="3"/>
+    <description>Siebel 8.x UCD plugin</description>
+    <tag>Application Server/Siebel 8.x</tag>
+    <server:plugin-type>Automation</server:plugin-type>
+  </header> 
+  <step-type name="Configure ImportSiebelMessage_single">
+    <description>Import XML file that contains a SiebelMessage tag (Data Maps, WebServices, etc). For Workflows, please use the special Workflow import.</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="SM_XMLPath" required="true">
+      	<property-ui label="Path to XML file" type="textBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="ImportSiebelMessage_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure BusinessService_ImportBSFromXML">
+    <description>Import XML file that contains a business service.</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="SM_XMLPath" required="true">
+      	<property-ui label="Path to XML file" type="textBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="BusinessService_ImportBSFromXML.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure BusProc_WorkfImport_single">
+    <description>Import XML Workflow</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="SM_XMLPath" required="true">
+      	<property-ui label="Path to XML file" type="textBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="BusProc_WorkfImport_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure BusProc_WorkfDeploy_single">
+    <description>Business Process - Workflow Deploy/Activate/Export</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="Action" required="true">
+      	<property-ui default-value="Import" description="What action should be used for the Wokflow Admin Service?" label="Choose Action Method" type="selectBox"/>
+      	<value label="Export">Export</value>
+      	<value label="Activate">Activate</value>
+      	<value label="Deploy">Deploy</value>
+      	<value label="Delete Deploy">DeleteDeploy</value>
+      </property>
+      <property name="FlowSearchSpec" required="false">
+      	<property-ui default-value="Process Name like 'SOMEPROCESS*' and Version = 15" description="This is the SQL where clause to apply when we search for the workflow. An example is shown in the default value." label="Workflow Search Spec (for all actions)" type="textBox"/>
+      </property>
+      <property name="DirPath" required="false">
+      	<property-ui label="Dir Path (for Export only)" type="textBox"/>
+      </property>
+ <!-- DO NOT USE THESE PROPERTIES, the are for the import method, which for this business service is not very good. Use the dedicated import step instead.
+      <property name="Repository" required="false">
+      	<property-ui label="Repository Name (for import only)" type="textBox"/>
+      </property>
+      <property name="ProjectName" required="false">
+      	<property-ui label="Project Name (for import only)" type="textBox"/>
+      </property>
+-->
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="BusProc_WorkfDeploy_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure Data_LOV_single">
+    <description>Data - List of Values</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="LOVType" required="true">
+      	<property-ui label="Type" type="textBox"/>
+      </property>
+      <property name="LOVDispValue" required="true">
+      	<property-ui label="Display Value" type="textBox"/>
+      </property>
+      <property name="LOVLIC" required="true">
+      	<property-ui label="LIC" type="textBox"/>
+      </property>
+      <property name="LOVOrder" required="false">
+      	<property-ui label="Order" type="textBox"/>
+      </property>
+      <property name="LOVLow" required="false">
+      	<property-ui label="Low" type="textBox"/>
+      </property>
+      <property name="Update">
+      	<property-ui description="Is this an update? If the record is not found, the step will fail. If you leave this unchecked then if the record is not found, it will be created,. If it is found, it will be updated." label="Is this an update?" type="checkBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="Data_LOV_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure Group_Position_single">
+    <description>Group - Positions</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="Division" required="true">
+      	<property-ui label="Division" type="textBox"/>
+      </property>
+      <property name="Name" required="true">
+      	<property-ui label="Position" type="textBox"/>
+      </property>
+      <property name="ParentPositionName" required="false">
+      	<property-ui label="Parent Position" type="textBox"/>
+      </property>
+      <property name="Update">
+      	<property-ui description="Is this an update? If the record is not found, the step will fail. If you leave this unchecked then if the record is not found, it will be created,. If it is found, it will be updated." label="Is this an update?" type="checkBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="Group_Position_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure Group_InternalDivision_single">
+    <description>Group - Internal Divisions</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="Name" required="true">
+      	<property-ui label="Internal Division" type="textBox"/>
+      </property>
+      <property name="OrganizationType" required="true">
+      	<property-ui label="Organization Type" type="textBox"/>
+      </property>
+      <property name="ParentDivisionName" required="false">
+      	<property-ui label="Parent Division" type="textBox"/>
+      </property>
+      <property name="Update">
+      	<property-ui description="Is this an update? If the record is not found, the step will fail. If you leave this unchecked then if the record is not found, it will be created,. If it is found, it will be updated." label="Is this an update?" type="checkBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="Group_InternalDivision_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure OrderManagement_Signals_single">
+    <description>Order Management - Signals</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="SignalName" required="true">
+      	<property-ui label="Signal (VOD) Name" type="textBox"/>
+      </property>
+<!--
+      <property name="SignalType" required="true">
+      	<property-ui label="Signal (VOD) Type" type="textBox"/>
+      </property>
+-->
+      <property name="SignalDescription" required="false">
+      	<property-ui label="Signal Description" type="textBox"/>
+      </property>
+      <property name="Update">
+      	<property-ui description="Is this an update? If the record is not found, the step will fail. If you leave this unchecked then if the record is not found, it will be created,. If it is found, it will be updated." label="Is this an update?" type="checkBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="OrderManagement_Signals_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure Enterprises_ProfileConfiguration_single">
+    <description>Enterprises - Profile Configuration</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="Profile" required="true">
+      	<property-ui label="Profile" type="textBox"/>
+      </property>
+      <property name="Alias" required="true">
+      	<property-ui label="Alias" type="textBox"/>
+      </property>
+      <property name="SubsystemType" required="true">
+      	<property-ui label="SubsystemType" type="textBox"/>
+      </property>
+      <property name="Parameters" required="true">
+      	<property-ui description="Please add the parameters of the component you want to add or update. Add them in the form &lt;name&gt;=&lt;value&gt;; (don't forget the ; at the end of each pair) all in one line. &lt;b&gt;NOTE: IT IS VERY IMPORTANT TO HAVE NO NEW LINES (ENTER) IN THE TEXT BOX.&lt;/b&gt;" label="Parameters" type="textAreaBox"/>
+      </property>
+      <property name="Update">
+      	<property-ui description="Is this an update? If the record is not found, the step will fail. If you leave this unchecked then if the record is not found, it will be created,. If it is found, it will be updated." label="Is this an update?" type="checkBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="Enterprises_ProfileConfiguration_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Shell Import Repository File">
+    <description>Import a repository file (rpd)</description>
+    <properties>
+      <property name="SiebelHomeDirectory" required="true">
+      	<property-ui default-value="${p:SiebelHomeDirectory}" description="The Siebel Home Directory on the target server." hidden="true" label="Siebel Home Dir" type="textBox"/>
+      </property>
+      <property name="SiebelODBCDataSource" required="true">
+      	<property-ui default-value="${p:SiebelODBCDataSource}" description="The Siebel ODBC Data Source." hidden="true" label="SiebelODBCDataSource" type="textBox"/>
+      </property>
+      <property name="SiebelDBTableOwner" required="true">
+      	<property-ui default-value="${p:SiebelDBTableOwner}" description="The Siebel DB Table Owner." hidden="true" label="Siebel DB Table Owner" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="SiebelRepName" required="true">
+      	<property-ui label="Repository Name" type="textBox"/>
+      </property>
+      <property name="SiebelRepPath">
+        <property-ui description="Path to the repository file(RPD). Relative path if Download artifacts were used" label="Path to Repository file" type="textBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="ImportRepository.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Shell Start or Stop Servers">
+    <description>Start or stop a server. </description>
+    <properties>
+      <property name="SiebelHomeDirectory" required="true">
+      	<property-ui default-value="${p:ServerHomeDirectory}" description="The Siebel Home Directory on the target machine" label="Server Home Directory" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="false">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="GatewayServer" required="false">
+      	<property-ui default-value="${p:GatewayServer}" description="The GatewayServer hostname or IP adress where we will connect to." hidden="true" label="GatewayServer" type="textBox"/>
+      </property>
+      <property name="GatewayPort" required="false">
+      	<property-ui default-value="${p:GatewayPort}" description="The port we will connect to for the GW server." hidden="true" label="GatewayPort" type="textBox"/>
+      </property>
+      <property name="SiebelServer" required="false">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="false">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="false">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="Action" required="true">
+      	<property-ui default-value="Start" description="Start or Stop" label="Choose Action Method" type="selectBox"/>
+      	<value label="Start">Start</value>
+      	<value label="Stop">Stop</value>
+      </property>
+      <property name="ServerType" required="true">
+      	<property-ui default-value="Siebel" description="Which Type of Server to start or stop" label="Choose Server" type="selectBox"/>
+      	<value label="Siebel">Siebel</value>
+      	<value label="Gateway">Gateway</value>
+      	<value label="Web">Web</value>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="StartStop.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Shell Copy or Move File">
+    <description>Copy or move a file from one location to another</description>
+    <properties>
+      <property name="Action" required="true">
+      	<property-ui default-value="Copy" description="Copy the file" label="Choose Action" type="selectBox"/>
+      	<value label="Copy">Copy</value>
+      	<value label="Move">Move</value>
+      </property>
+      <property name="InitialLocation" required="true">
+      	<property-ui default-value="" description="Initial (From) Location" label="From:" type="textBox"/>
+      </property>
+      <property name="FinallLocation" required="true">
+      	<property-ui default-value="" description="Final (To) Location" label="To:" type="textBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="CopyFile.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure RuntimeEvents_Events_single">
+    <description>Runtime Events - Events</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="Event" required="true">
+      	<property-ui label="Event" type="textBox"/>
+      </property>
+      <property name="EventLOVType" required="true">
+      	<property-ui label="Event LOV Type" type="textBox"/>
+      </property>
+      <property name="Sequence" required="true">
+      	<property-ui label="Sequence" type="textBox"/>
+      </property>
+      <property name="ObjectType" required="true">
+      	<property-ui label="Object Type" type="textBox"/>
+      </property>
+      <property name="ObjectName" required="true">
+      	<property-ui label="Object Name" type="textBox"/>
+      </property>
+      <property name="ConditionExpression" required="false">
+      	<property-ui label="Condition Expression" type="textAreaBox"/>
+      </property>
+      <property name="ActionSetName" required="false">
+      	<property-ui label="Action Set Name" type="textBox"/>
+      </property>
+      <property name="SubEvent" required="false">
+      	<property-ui label="Sub Event" type="textBox"/>
+      </property>
+      <property name="Update">
+      	<property-ui description="Is this an update? If the record is not found, the step will fail. If you leave this unchecked then if the record is not found, it will be created,. If it is found, it will be updated." label="Is this an update?" type="checkBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="RuntimeEvents_Events_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure Applications_Views_create_single">
+    <description>Create a View in the Feature Access Business Object (pre-requisite to associate View with Responsibility)</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="ViewName" required="true">
+      	<property-ui label="View Name" type="textBox"/>
+      </property>
+      <property name="ViewDescription" required="false">
+      	<property-ui label="View Description" type="textBox"/>
+      </property>
+      <property name="ViewLocalAccess" required="false">
+      	<property-ui default-value="Y" label="View Local Access" type="selectBox"/>
+      	<value label="Yes">Y</value>
+      	<value label="No">N</value>
+      </property>
+      <property name="Update">
+      	<property-ui description="Is this an update? If the record is not found, the step will fail. If you leave this unchecked then if the record is not found, it will be created,. If it is found, it will be updated." label="Is this an update?" type="checkBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="Application_Views_create_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure Applications_Responsibilities_create_single">
+    <description>Create a View in the Feature Access Business Object (pre-requisite to associate View with Responsibility)</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="ResponsibilityName" required="true">
+      	<property-ui label="Responsibility Name" type="textBox"/>
+      </property>
+      <property name="ResponsibilityDescription" required="false">
+      	<property-ui label="Responsibility Description" type="textBox"/>
+      </property>
+      <property name="ResponsibilityOrganization" required="true">
+      	<property-ui label="Responsibility Organization" type="textBox"/>
+      </property>
+      <property name="AccessType" required="false">
+      	<property-ui label="Web Access" type="textBox"/>
+      </property>
+      <property name="Update">
+      	<property-ui description="Is this an update? If the record is not found, the step will fail. If you leave this unchecked then if the record is not found, it will be created,. If it is found, it will be updated." label="Is this an update?" type="checkBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="Application_Responsibilities_create_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+    <step-type name="Configure Application_Responsibility_View_associate_single">
+    <description>Create a View in the Feature Access Business Object (pre-requisite to associate View with Responsibility)</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="ResponsibilityName" required="true">
+      	<property-ui label="Responsibility Name" type="textBox"/>
+      </property>
+      <property name="ViewName" required="true">
+      	<property-ui label="View Name" type="textBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="Application_Responsibility_View_associate_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure Application_PredefinedQueries_single">
+    <description>Data - List of Values</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="QueryObject" required="true">
+      	<property-ui label="Query Object" type="textBox"/>
+      </property>
+      <property name="QueryName" required="true">
+      	<property-ui label="Query Name" type="textBox"/>
+      </property>
+      <property name="Query" required="true">
+      	<property-ui label="Query" type="textAreaBox"/>
+      </property>
+      <property name="Update">
+      	<property-ui description="Is this an update? If the record is not found, the step will fail. If you leave this unchecked then if the record is not found, it will be created,. If it is found, it will be updated." label="Is this an update?" type="checkBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="Application_PredefinedQueries_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+    <step-type name="Configure ServerConfiguration_JobTemplates_single">
+    <description>Server Configuration - Job Templates</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="JobTempName" required="true">
+      	<property-ui label="Job Template Name" type="textBox"/>
+      </property>
+      <property name="JobTempComp" required="true">
+      	<property-ui label="Job Template Component" type="textBox"/>
+      </property>
+      <property name="JobTempShortName" required="true">
+      	<property-ui label="Job Template Short Name" type="textBox"/>
+      </property>
+      <property name="JobTempDescription" required="false">
+      	<property-ui label="Job Template Description" type="textBox"/>
+      </property>
+      <property name="Enabled" required="false">
+      	<property-ui label="Job Template Enabled?" type="textBox"/>
+      </property>
+      <property name="Parameters" required="true">
+      	<property-ui description="Please add the parameters of the component you want to add or update. Add them in the form &lt;name&gt;=&lt;value&gt;; (don't forget the ; at the end of each pair) all in one line. &lt;b&gt;NOTE: IT IS VERY IMPORTANT TO HAVE NO NEW LINES (ENTER) IN THE TEXT BOX.&lt;/b&gt;" label="Parameters" type="textAreaBox"/>
+      </property>
+      <property name="Update">
+      	<property-ui description="Is this an update? If the record is not found, the step will fail. If you leave this unchecked then if the record is not found, it will be created,. If it is found, it will be updated." label="Is this an update?" type="checkBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="ServerConfiguration_JobTemplates_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Shell Generate Browser Scripts">
+    <description>Generater Browser Scripts on Siebel server</description>
+    <properties>
+      <property name="SiebelHomeDirectory" required="true">
+      	<property-ui default-value="${p:ServerHomeDirectory}" description="The Siebel Home Directory on the target machine" label="Server Home Directory" type="textBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="GenerateBrowserScripts.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Configure Integration_SymbolicURLList_single">
+    <description>Integration - Symbolic URL List</description>
+    <properties>
+      <property name="SiebelCBServer" required="true">
+      	<property-ui default-value="${p:SiebelCBServer}" description="The Siebel Server hostname or IP adress where we will connect to." hidden="true" label="SiebelCBServer" type="textBox"/>
+      </property>
+      <property name="SiebelEnt" required="true">
+      	<property-ui default-value="${p:SiebelEnt}" description="The Siebel Enterprise we will connect to." hidden="true" label="SiebelEnt" type="textBox"/>
+      </property>
+      <property name="SiebelCBPort" required="true">
+      	<property-ui default-value="${p:SiebelCBPort}" description="The port we will connect to." hidden="true" label="SiebelCBPort" type="textBox"/>
+      </property>
+      <property name="SiebelUser" required="true">
+      	<property-ui default-value="${p:SiebelUser}" description="Siebel Admin Username" hidden="true" label="SiebelUser" type="textBox"/>
+      </property>
+      <property name="SiebelPass" required="true">
+      	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
+      </property>
+      <property name="Name" required="true">
+      	<property-ui label="Name" type="textBox"/>
+      </property>
+      <property name="VirtualName" required="true">
+      	<property-ui label="Virtual Name" type="textBox"/>
+      </property>
+      <property name="AuthenticationType" required="false">
+      	<property-ui label="Authentication Type" type="textBox"/>
+      </property>
+      <property name="AuthenticationValue" required="false">
+      	<property-ui label="Authentication Value" type="textBox"/>
+      </property>
+      <property name="ConnectTimeout" required="false">
+      	<property-ui label="Connect Timeout" type="textBox"/>
+      </property>
+      <property name="DataTimeout" required="false">
+      	<property-ui label="Data Timeout" type="textBox"/>
+      </property>
+      <property name="TTSymptom" required="false">
+      	<property-ui label="TT Symptom" type="textBox"/>
+      </property>
+      <property name="Update">
+      	<property-ui description="Is this an update? If the record is not found, the step will fail. If you leave this unchecked then if the record is not found, it will be created,. If it is found, it will be updated." label="Is this an update?" type="checkBox"/>
+      </property>
+    </properties>
+    <!-- This is the standard post processing script. It sets the step to Success if the exit code
+    of the process was 0. Otherwise, the step fails. In order for a step to run correctly, it must
+    have a post processing script and that post processing script must set the status property
+    based off of the exit code. -->
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <!--The syntax of the command element is such that each argument goes on its own line.  
+    The arg attribute can be "value", "path", or "file". So this command will be:
+    ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg file="Integration_SymbolicURLList_single.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+</plugin>
