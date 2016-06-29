@@ -1,4 +1,4 @@
-# UrbanCode Deploy Siebel Plugin
+# IBM UrbanCode Deploy Siebel Plugin
 ---
 Note: This is not the plugin distributable! This is the source code. To find the installable plugin, go into the 'Releases' tab, and download a stable version.
 
