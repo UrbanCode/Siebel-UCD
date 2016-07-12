@@ -46,7 +46,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="ImportSiebelMessage_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -91,7 +91,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="BusinessService_ImportBSFromXML.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -136,7 +136,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="BusProc_WorkfImport_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -199,7 +199,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="BusProc_WorkfDeploy_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -259,7 +259,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="Data_LOV_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -313,7 +313,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="Group_Position_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -367,7 +367,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="Group_InternalDivision_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -423,7 +423,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="OrderManagement_Signals_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -480,7 +480,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="Enterprises_ProfileConfiguration_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -528,7 +528,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="ImportRepository.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -587,7 +587,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="StartStop.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -625,7 +625,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="CopyFile.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -694,7 +694,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="RuntimeEvents_Events_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -750,7 +750,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="Application_Views_create_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -807,7 +807,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="Application_Responsibilities_create_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -855,7 +855,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="Application_Responsibility_View_associate_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -909,7 +909,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="Application_PredefinedQueries_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -972,7 +972,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="ServerConfiguration_JobTemplates_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -1002,7 +1002,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="GenerateBrowserScripts.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
@@ -1068,7 +1068,7 @@
     ${GROOVY_HOME}/bin/groovy -cp src cmd.groovy ${PLUGIN_INPUT_PROPS} ${PLUGIN_OUTPUT_PROPS} -->
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
-      <arg path="lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar:lib/UCDSiebelPlugin.jar"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar:lib/gson-2.2.4.jar:lib/Siebel.jar:lib/SiebelJI_enu.jar"/>
       <arg file="Integration_SymbolicURLList_single.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>

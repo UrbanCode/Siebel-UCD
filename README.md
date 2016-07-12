@@ -3,19 +3,24 @@
 Note: This is not the plugin distributable! This is the source code. To find the installable plugin, go into the 'Releases' tab, and download a stable version.
 
 ### License
-This plug-in is protected under the [Eclipse Public 1.0 License](http://www.eclipse.org/legal/epl-v10.html)
+This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclipse.org/legal/epl-v10.html)
 
 ### Compatibility
-	The IBM UrbanCode Deploy automation plug-in works with Siebel version 8.X.
-	This plug-in requires version 6.1.1 or later of IBM UrbanCode Deploy.
+	The IBM UrbanCode Deploy automation plugin works with Siebel version 8.X.
+	This plugin requires version 6.1.1 or later of IBM UrbanCode Deploy.
     
 ### Installation
 	The packaged zip is located in the releases folder. No special steps are required for installation.
-	See Installing plug-ins in UrbanCode Deploy. Download this zip file if you wish to skip the 
+	See Installing plugins in UrbanCode Deploy. Download this zip file if you wish to skip the 
 	manual build step. Otherwise, download the entire Siebel-UCD and 
 	run the "ant" command in the top level folder. This should compile the code and create
 	a new distributable zip within the releases folder. Use this command if you wish to make
 	your own changes to the plugin.
+    
+    Note: Two Siebel specific jars are required to run this plugin: Siebel.jar and SiebelJI_enu.jar. 
+    These can be downloaded from Oracle's website. To install the jars, follow these steps:
+    first extract the plugin, then copy the jars into the /lib directory, re-zip the extracted plugin files,
+    and install as normal into UCD. These jars must be named as stated above.
 
 ### History
     Version 4

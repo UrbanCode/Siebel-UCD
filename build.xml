@@ -1,4 +1,4 @@
-<!--
+﻿<!--
 
 /**
  * © Copyright IBM Corporation 2014.  
@@ -9,72 +9,73 @@
 
 -->
 
-	<project name="Siebel 8.x UCD Plugin" default="main" basedir=".">
+	<project name="Siebel 8.x UCD Plugin" default="main" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
 		<property name="project" value="Siebel 8.x UCD Plugin" />
 
         <property name="version" value="dev"/>  <!-- default -->
 		<property name="deployPluginArchiveName" value="releases/Siebel-UCD v${version}.zip" />
 		
-		<property name="src.dir" value="${basedir}/src" />
-		<property name="build.dir" value="${basedir}/build" />
-		<property name="plugin.dir" value="${basedir}/plugin" />
+		<property name="src.dir"     value="${basedir}/src" />
+		<property name="build.dir"   value="${basedir}/build" />
+		<property name="plugin.dir"  value="${basedir}/plugin" />
 		<property name="license.dir" value="${basedir}/license" />
-		<property name="doc.dir" value="${basedir}/doc" />
-		<property name="lib.dir" value="${basedir}/lib" />
+		<property name="doc.dir"     value="${basedir}/doc" />
+		<property name="lib.dir"     value="${basedir}/lib" />
 		<property name="scripts.dir" value="${basedir}/scripts" />
 		<property name="imports.dir" value="${basedir}/imports" />
 		
-		<target name="main" depends="clean, copyDependencies, compileBinary, buildZip" />
+		<target name="main" depends="clean, resolve, build, dist" />
 
-		<target name="compileBinary">
-			<javac debug="true" destdir="${build.dir}" target="1.6" source="1.6" includeantruntime="false">
-				<src path="${src.dir}" />
-			</javac>
-			<jar destfile="${build.dir}/lib/UCDSiebelPlugin.jar" basedir="${build.dir}/classes" />
-		</target>
 				
 		<!-- Copy in the dependencies -->
-		<target name="copyDependencies">
+		<target name="build" depends="resolve">
 
-			<!-- inputs (info, upgrade) -->
+			<!-- Copy info, plugin, and upgrade xmls -->
 			<copy todir="${build.dir}">
 				<fileset dir="${plugin.dir}">
 				</fileset>
 			</copy>
-									
+							
+            <!-- Copy Groovy Scripts -->
 			<copy todir="${build.dir}">
 				<fileset dir="${scripts.dir}">					
 				</fileset>
 			</copy>
 					
+			<!-- Copy Groovy Classes -->
 			<mkdir dir="${build.dir}/classes"/>
-			<!-- copy groocy classes -->
 			<copy todir="${build.dir}/classes">
 				<fileset dir="${src.dir}">
 				</fileset>
 			</copy>
 
+			<!-- Copy Jars -->
+			<mkdir dir="${build.dir}/license"/>
+			<copy todir="${build.dir}/license">
+				<fileset dir="${license.dir}">
+				</fileset>
+			</copy>
+
+			<!-- Copy Jars -->
 			<mkdir dir="${build.dir}/lib"/>
-			<!-- copy license -->
 			<copy todir="${build.dir}/lib">
 				<fileset dir="${lib.dir}">
+                    <exclude name="**javadoc.jar" />
+                    <exclude name="**sources.jar" />
 				</fileset>
 			</copy>
 			
+			<!-- Copy Documents -->
 			<mkdir dir="${build.dir}/doc"/>
-			<!-- copy license -->
 			<copy todir="${build.dir}/doc">
-				<fileset dir="${doc.dir}">
-					<include name="HowTo.html" />
-					<include name="UCD Siebel Plugin DesignDocument.pdf" />
-				</fileset>
+				<fileset dir="${doc.dir}"/>
 			</copy>
 			
 		</target>
 
 		<!-- Build the actual zip file that gets uploaded to uDeploy -->
-		<target name="buildZip">
+		<target name="dist" depends="resolve">
 			<zip destfile="${deployPluginArchiveName}" basedir="${build.dir}" update="false"/>
 		</target>
 
@@ -85,4 +86,23 @@
 			<delete file="${deployPluginArchiveName}" />
 		</target>
 
-	</project>
+        <!-- Retreive all required dependencies from maven repository -->
+        <target name="resolve" depends="install-ivy" unless="resolve.no" description="Resolve all dependencies">
+            <mkdir dir="${lib.dir}"/>
+            <ivy:cachepath pathid="${lib.dir}">
+                <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+                <dependency org="com.google.code.gson" name="gson" rev="2.2.4" transitive="false" />
+                <!-- http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.ibm.urbancode.plugins%22 -->
+                <dependency org="com.ibm.urbancode.plugins" name="groovy-plugin-utils" rev="1.0" transitive="false" />
+            </ivy:cachepath>
+            <ivy:retrieve />
+        </target>
+    
+        <!-- Install Ivy -->
+        <available classname="org.apache.ivy.Main" property="ivy.installed"/>
+        <target name="install-ivy" description="Install ivy" unless="ivy.installed">
+            <mkdir dir="${user.home}/.ant/lib"/>
+            <get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.3.0/ivy-2.3.0.jar"/>
+            <fail message="Ivy has been installed. Run the build again"/>
+        </target>
+    </project>
