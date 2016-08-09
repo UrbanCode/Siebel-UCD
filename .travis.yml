@@ -4,7 +4,7 @@ rvm:
 install:
   - ant install-ivy -DfailIvy=false
 before_script:
-  - export VERSION=$TRAVIS_TAG.$TRAVIS_COMMIT
+  - export VERSION=$TRAVIS_TAG.${TRAVIS_COMMIT:0:8}
   - ant run-tests -Dcompile.no=y
 script:
   - ant -Dcompile.no=y -Dversion=$VERSION
