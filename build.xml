@@ -1,108 +1,253 @@
 ﻿<!--
 
 /**
- * © Copyright IBM Corporation 2014.  
+ * © Copyright IBM Corporation 2016.
  * This is licensed under the following license.
  * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
- * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp. 
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
 
 -->
 
-	<project name="Siebel 8.x UCD Plugin" default="main" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="Siebel 8.x UCD Plugin" default="main" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
-		<property name="project" value="Siebel 8.x UCD Plugin" />
+        <property name="build.dir"              value="${basedir}/build" />
+        <property name="build.plugin.dir"       value="${build.dir}/plugin" />
+        <property name="build.tmp.dir"          value="${build.dir}/tmp" />
+        <property name="build.tmp.groovy.dir"   value="${build.tmp.dir}/groovy" />
+        <property name="build.tmp.java.dir"     value="${build.tmp.dir}/java" />
+        <property name="build.test.dir"         value="${build.dir}/test" />
+        <property name="build.test.java.dir"    value="${build.test.dir}/java" />
+        <property name="build.test.classes.dir" value="${build.test.dir}/classes" />
+        <property name="license.dir"            value="${basedir}/license" />
+        <property name="plugin.dir"             value="${basedir}/plugin" />
+        <property name="src.dir"                value="${basedir}/src" />
+        <property name="src.main.dir"           value="${src.dir}/main" />
+        <property name="src.main.groovy.dir"    value="${src.main.dir}/groovy" />
+        <property name="src.main.java.dir"      value="${src.main.dir}/java" />
+        <property name="src.main.scripts.dir"   value="${src.main.dir}/scripts" />
+        <property name="src.test.dir"           value="${src.dir}/test" />
+        <property name="src.test.java.dir"      value="${src.test.dir}/java" />
+        <property name="doc.dir"                value="${basedir}/doc" />
+        <property name="lib.dir"                value="${basedir}/lib" />
+        <property name="lib.build.dir"          value="${lib.dir}/build" />
+        <property name="lib.build.classes.dir"  value="${lib.build.dir}/classes" />
+        <property name="lib.test.dir"           value="${lib.dir}/test" />
+        <property name="lib.test.java.dir"      value="${lib.test.dir}/java" />
+        <property name="lib.test.dir"           value="${lib.dir}/test" />
+        <property name="releases.dir"           value="${basedir}/releases" />
+        <property name="releases.report.dir"    value="${releases.dir}/report" />
 
-        <property name="version" value="dev"/>  <!-- default -->
-		<property name="deployPluginArchiveName" value="releases/Siebel-UCD v${version}.zip" />
-		
-		<property name="src.dir"     value="${basedir}/src" />
-		<property name="build.dir"   value="${basedir}/build" />
-		<property name="plugin.dir"  value="${basedir}/plugin" />
-		<property name="license.dir" value="${basedir}/license" />
-		<property name="doc.dir"     value="${basedir}/doc" />
-		<property name="lib.dir"     value="${basedir}/lib" />
-		<property name="scripts.dir" value="${basedir}/scripts" />
-		<property name="imports.dir" value="${basedir}/imports" />
-		
-		<target name="main" depends="clean, resolve, build, dist" />
 
-				
-		<!-- Copy in the dependencies -->
-		<target name="build" depends="resolve">
+        <property name="version" value="dev" />
+        <property name="plugin" value="Siebel-UCD" />
+        <property name="pluginDist" value="${releases.dir}/${plugin}-v${version}.zip" />
 
-			<!-- Copy info, plugin, and upgrade xmls -->
-			<copy todir="${build.dir}">
-				<fileset dir="${plugin.dir}">
-				</fileset>
-			</copy>
-							
-            <!-- Copy Groovy Scripts -->
-			<copy todir="${build.dir}">
-				<fileset dir="${scripts.dir}">					
-				</fileset>
-			</copy>
-					
-			<!-- Copy Groovy Classes -->
-			<mkdir dir="${build.dir}/classes"/>
-			<copy todir="${build.dir}/classes">
-				<fileset dir="${src.dir}">
-				</fileset>
-			</copy>
+        <target name="main" depends="clean, resolve, compile-classes, build, dist">
+            <echo>Plugin build complete!</echo>
+        </target>
 
-			<!-- Copy Jars -->
-			<mkdir dir="${build.dir}/license"/>
-			<copy todir="${build.dir}/license">
-				<fileset dir="${license.dir}">
-				</fileset>
-			</copy>
+        <!-- ================================================================== -->
+        <!-- PATHS                                                              -->
+        <!-- ================================================================== -->
+        <path id="classpath">
+            <fileset dir="${lib.dir}">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
 
-			<!-- Copy Jars -->
-			<mkdir dir="${build.dir}/lib"/>
-			<copy todir="${build.dir}/lib">
-				<fileset dir="${lib.dir}">
-                    <exclude name="**javadoc.jar" />
-                    <exclude name="**sources.jar" />
-				</fileset>
-			</copy>
-			
-			<!-- Copy Documents -->
-			<mkdir dir="${build.dir}/doc"/>
-			<copy todir="${build.dir}/doc">
-				<fileset dir="${doc.dir}"/>
-			</copy>
-			
-		</target>
+        <path id="classpath.build">
+            <fileset dir="${lib.build.dir}">
+                <include name="*.jar"/>
+            </fileset>
+            <path refid="classpath"/>
+        </path>
 
-		<!-- Build the actual zip file that gets uploaded to uDeploy -->
-		<target name="dist" depends="resolve">
-			<zip destfile="${deployPluginArchiveName}" basedir="${build.dir}" update="false"/>
-		</target>
+        <path id="classpath.test">
+            <fileset dir="${lib.test.dir}">
+                <include name="*.jar"/>
+            </fileset>
+            <path refid="classpath.build"/>
+        </path>
 
-		<!-- Clean up the build directory -->
-		<target name="clean">
-			<delete dir="build" />
-			<mkdir dir="build" />
-			<delete file="${deployPluginArchiveName}" />
-		</target>
+        <!-- =================================================== -->
+        <!-- TASK DEFINTITION TARGET                             -->
+        <!-- =================================================== -->
 
-        <!-- Retreive all required dependencies from maven repository -->
+        <target name="taskdef" unless="taskdef.no">
+            <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc">
+                <classpath>
+                    <path refid="classpath.test"/>
+                </classpath>
+            </taskdef>
+        </target>
+
+        <!-- =================================================== -->
+        <!-- BUILD TARGET                                        -->
+        <!-- =================================================== -->
+
+        <!-- Copy in the dependencies -->
+        <target name="build" depends="resolve">
+
+            <!-- inputs (info, upgrade, plugin, and scripts) -->
+            <copy todir="${build.plugin.dir}">
+                <fileset dir="${plugin.dir}">
+                    <include name="info.xml" />
+                    <include name="upgrade.xml" />
+                    <include name="plugin.xml" />
+                </fileset>
+
+                <fileset dir="${src.main.scripts.dir}" />
+            </copy>
+
+            <mkdir dir="${build.plugin.dir}/license"/>
+            <!-- copy license -->
+            <copy todir="${build.plugin.dir}/license">
+                <fileset dir="${license.dir}">
+                    <include name="EPL.txt" />
+                </fileset>
+            </copy>
+
+            <mkdir dir="${build.plugin.dir}/doc"/>
+            <!-- copy doc -->
+            <copy todir="${build.plugin.dir}/doc">
+                <fileset dir="${doc.dir}">
+                    <include name="HowTo.html" />
+                </fileset>
+            </copy>
+
+            <mkdir dir="${build.plugin.dir}/lib"/>
+            <!-- copy libs -->
+            <copy todir="${build.plugin.dir}/lib">
+                <fileset dir="${lib.dir}" >
+                    <exclude name="**/build/**"/>
+                    <exclude name="**/test/**"/>
+                </fileset>
+            </copy>
+
+             <!-- Copy Classes -->
+            <mkdir dir="${build.plugin.dir}/classes"/>
+            <copy todir="${build.plugin.dir}/classes">
+                <!-- Groovy -->
+                <fileset dir="${src.main.groovy.dir}">
+                    <include name="**/*.groovy" />
+                </fileset>
+                
+                <!-- Java -->
+                <fileset dir="${lib.build.classes.dir}">
+                    <include name="**/*.class" />
+                </fileset>
+            </copy>
+        </target>
+
+        <!-- =================================================== -->
+        <!-- DIST TARGET                                         -->
+        <!-- =================================================== -->
+        <target name="dist" depends="resolve">
+            <zip destfile="${pluginDist}" basedir="${build.plugin.dir}" update="false"/>
+        </target>
+
+        <!-- =================================================== -->
+        <!-- CLEAN TARGET                                        -->
+        <!-- =================================================== -->
+        <target name="clean">
+            <delete dir="build" />
+            <mkdir dir="build" />
+            <delete file="${pluginDist}" />
+        </target>
+
+        <!-- =================================================== -->
+        <!-- RESOLVE TARGET                                      -->
+        <!-- =================================================== -->
         <target name="resolve" depends="install-ivy" unless="resolve.no" description="Resolve all dependencies">
             <mkdir dir="${lib.dir}"/>
-            <ivy:cachepath pathid="${lib.dir}">
-                <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-                <dependency org="com.google.code.gson" name="gson" rev="2.2.4" transitive="false" />
-                <!-- http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.ibm.urbancode.plugins%22 -->
-                <dependency org="com.ibm.urbancode.plugins" name="groovy-plugin-utils" rev="1.0" transitive="false" />
-            </ivy:cachepath>
-            <ivy:retrieve />
+            <mkdir dir="${lib.build.dir}"/>
+            <mkdir dir="${lib.test.dir}"/>
+            <ivy:retrieve conf="default" pattern="${lib.dir}/[artifact]-[revision](-[classifier]).[ext]"/>
+            <ivy:retrieve conf="build" pattern="${lib.dir}/[conf]/[artifact]-[revision](-[classifier]).[ext]"/>
+            <ivy:retrieve conf="test" pattern="${lib.dir}/[conf]/[artifact]-[revision](-[classifier]).[ext]"/>
         </target>
-    
-        <!-- Install Ivy -->
+
+        <!-- =================================================== -->
+        <!-- INSTALL IVY TARGET                                  -->
+        <!-- =================================================== -->
         <available classname="org.apache.ivy.Main" property="ivy.installed"/>
-        <target name="install-ivy" description="Install ivy" unless="ivy.installed">
-            <mkdir dir="${user.home}/.ant/lib"/>
-            <get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.3.0/ivy-2.3.0.jar"/>
-            <fail message="Ivy has been installed. Run the build again"/>
+        <target name="install-ivy" depends="-install, -fail"></target>
+
+        <target name="-install" description="Install ivy" unless="ivy.installed">
+            <!-- Installation -->
+            <property name="antHome" value="${user.home}${file.separator}.ant"/>
+            <mkdir dir="${antHome}${file.separator}lib"/>
+            <get dest="${antHome}${file.separator}lib${file.separator}ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.3.0/ivy-2.3.0.jar"/>
+            <echo message="SUCCESS! Ivy has been installed in ${antHome}." />
+
+            <!-- Determine whether to continue or fail -->
+            <property name="failIvy" value="true"/>
+            <condition property="do.fail">
+                <equals arg1="${failIvy}" arg2="true" />
+            </condition>
         </target>
-    </project>
+
+        <!-- Default to fail if Ivy installed, unless -DfailIvy=false : Used for .travis -->
+        <target name="-fail" if="do.fail">
+            <fail message="Please run the build again.${line.separator}Note: If you get this message more than once, trying specify your Ant's home directory with the flag: ant -DantHome='ant/home/directory/here'" />
+        </target>
+
+        <!-- =================================================== -->
+        <!-- TEST TARGET                                         -->
+        <!-- =================================================== -->
+
+        <target name="run-tests" depends="compile-classes, compile-tests" unless="tests.no">
+
+            <mkdir dir="${releases.report.dir}"/>
+            <junit printsummary="yes" haltonfailure="no" showoutput="false" failureproperty="tests.failed">
+
+                <classpath refid="classpath.test" />
+                <classpath location="${lib.test.java.dir}" />
+
+                <formatter type="xml" />
+                <formatter type="plain" />
+
+                <batchtest fork="yes" todir="${releases.report.dir}">
+                    <fileset dir="${src.test.java.dir}">
+                        <include name="**/*Test.java" />
+                    </fileset>
+                </batchtest>
+
+            </junit>
+            <fail message="JUnit Tests Failed. View 'releases/report' for full output log." if="tests.failed" />
+        </target>
+
+        <!-- =================================================== -->
+        <!-- COMPILE TARGETS                                     -->
+        <!-- =================================================== -->
+        <target name="compile-classes" description="Compile Groovy or Java classes." depends="resolve, taskdef">
+            <!-- Groovy -->
+            <mkdir dir="${build.tmp.groovy.dir}"/>
+            <!--
+            <groovyc srcdir="${src.main.dir}" destdir="${build.tmp.groovy.dir}">
+                <include name="**/*.groovy"/>
+                <classpath refid="classpath.build"/>
+                <javac debug="on" deprecation="true"/>
+            </groovyc>
+             -->
+            <delete dir="${build.tmp.groovy.dir}" />
+            <!-- Java -->
+            <mkdir dir="${lib.build.classes.dir}"/>
+            <!--
+            <javac srcdir="${src.main.java.dir}" destdir="${lib.build.classes.dir}" includeantruntime="false">
+                <include name="**/*.java"/>
+                <classpath refid="classpath.build"/>
+            </javac>
+             -->
+        </target>
+
+        <!-- Java Tests -->
+        <target name="compile-tests" description="Compile Java Test Files..." depends="compile-classes">
+            <mkdir dir="${lib.test.java.dir}"/>
+            <javac srcdir="${src.test.java.dir}" destdir="${lib.test.java.dir}" includeantruntime="false">
+                <classpath refid="classpath.test"/>
+            </javac>
+        </target>
+</project>
+
