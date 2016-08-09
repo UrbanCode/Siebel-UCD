@@ -39,8 +39,8 @@
         <property name="releases.report.dir"    value="${releases.dir}/report" />
         
 
-        <property name="version" value="dev" />
         <property name="plugin" value="Siebel-UCD" />
+        <property name="version" value="dev" />
         <property name="pluginDist" value="${releases.dir}/${plugin}-v${version}.zip" />
 
         <target name="main" depends="clean, resolve, compile-classes, build, dist">
