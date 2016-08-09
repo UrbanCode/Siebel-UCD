@@ -24,4 +24,5 @@ deploy:
   file: releases/*.zip
   skip_cleanup: true
   on:
+    tags: true
     repo: IBM-UrbanCode/Siebel-UCD
