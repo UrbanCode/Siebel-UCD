@@ -38,7 +38,7 @@
         <property name="releases.dir"           value="${basedir}/releases" />
         <property name="releases.report.dir"    value="${releases.dir}/report" />
 
-
+        
         <property name="version" value="dev" />
         <property name="plugin" value="Siebel-UCD" />
         <property name="pluginDist" value="${releases.dir}/${plugin}-v${version}.zip" />
@@ -221,25 +221,21 @@
         <!-- =================================================== -->
         <!-- COMPILE TARGETS                                     -->
         <!-- =================================================== -->
-        <target name="compile-classes" description="Compile Groovy or Java classes." depends="resolve, taskdef">
+        <target name="compile-classes" description="Compile Groovy or Java classes." depends="resolve, taskdef" unless="compile.no">
             <!-- Groovy -->
             <mkdir dir="${build.tmp.groovy.dir}"/>
-            <!--
             <groovyc srcdir="${src.main.dir}" destdir="${build.tmp.groovy.dir}">
                 <include name="**/*.groovy"/>
                 <classpath refid="classpath.build"/>
                 <javac debug="on" deprecation="true"/>
             </groovyc>
-             -->
             <delete dir="${build.tmp.groovy.dir}" />
             <!-- Java -->
             <mkdir dir="${lib.build.classes.dir}"/>
-            <!--
             <javac srcdir="${src.main.java.dir}" destdir="${lib.build.classes.dir}" includeantruntime="false">
                 <include name="**/*.java"/>
                 <classpath refid="classpath.build"/>
             </javac>
-             -->
         </target>
 
         <!-- Java Tests -->
