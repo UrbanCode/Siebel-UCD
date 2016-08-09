@@ -2,6 +2,7 @@
 .*
 !.gitignore
 !.git*
+!.travis*
 
 # ignore all temporary files and ahp specific files
 *.bak

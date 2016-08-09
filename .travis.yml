@@ -1,0 +1,18 @@
+language: groovy
+rvm:
+- 1.8.8
+install:
+- ant install-ivy -DfailIvy=false
+before_script:
+- ant run-tests -Dcompile.no=y
+script:
+- ant -Dcompile.no=y
+jdk:
+- oraclejdk8
+- oraclejdk7
+- openjdk7
+- openjdk6
+notifications:
+  slack:
+    secure: RMERSWY154EhB1puM7RPhBRLIjGNQcv115CD7P2SGr4R3sHJx3xmVN3pSCBr4zNfEBaucjKmnX9trmEZ7h+xdTRp2zi8OpU3nQZdwGizZFPZ1MmwuefbnL/JXBWwlWSuRMaZAR5XEdpHD0kwYJKXuPsqGIvijPNiYtqE7X/YMzHw+PjHPOBqzpRSmSP13iLpzM6mH1imlSzMtZ6UhvZI6ci0QBjXdmexE/eEr8r+9+WwLu/XndJ04ADHHVa+tLaveKnz0VFIWahJ3OiXmpOeUZd4MS0Ifri7EofhxvvUgw4k/5nuMcDpHHAkw2/O5TWJK7L/N1jzrTTLbzW9dNR8jC40lSclmial+jwy9xlhIx53T1ckBsOrc8No7632UE1kYtJuVj89KnEuIw4qlSeVUpUaXuKOevy4luHtSVNfuLtQturZ3mHfIpgTv1SfVhKdinz4leLFRxRrFPbnx9ce8Nlctlr3hKwtdgZhPP8uuR4NCsEViviNzWtPWyBH1s82RcIw/yuE6KE/O8wy3V0285hi0gVgFMOuFf0SFBVy1yW8KFLjJRU5DPgZbFAmi3jdTDjRkGkoow5A0iA5zIImDFVhJes4/0j4zAVNQmWP+ImCumIxoWcVVM7TqABTqvOR74XKqiMAQxXhO8kPEgKr/IMXK0Qw73u7+Ne+B9f53uY=
+  email: false
