@@ -20,6 +20,8 @@ deploy:
   provider: releases
   api_key:
     secure: d5t/TCNKfuGuvWJekx/z08APESic+fe9eoVvWL4MbOU9vX4NlWCYuRwhxC+Hp0L26hagxXtppyNtT8MQkv/wltrKCU6xP/h9YZt6Pt/Q1cSTeZrKb/mYDu0c/+G19MyRGq0rlofDS4+EO/WI8xEa/MVPgYF/UK/Xn7E7SgpdF3d7R1WG3BvYGYNCGqpOQ3UAt8NHyPdZ6djdZcPPUWts1ULnhUnr+G/EK5xSnPaRiy8KZwJXm1FK10UJOiBDDf92xzcMp9XhoqbRT8aAOB8f4H6VEboScyC/0CAxy38qEHKB8THv7yBCK3MZP3Y9M7NEc5AoIvzAd8qqZDgAlgyfqceJ4XyS174XPggZIs9grAj19phfYO6TZ8nzJqqFwnnv4i8OzA6s1s/L/Ys+C1lkYXv1kqorotV2m9nKkP4b3YnZNf1Brn5mXR2VeUrvf21njK3B0jyHv+yqETzoI3RgxDyP9jO+JdiAxO713eyJtHrAiKQFIt0tMK379c234p6JLeXca0KGlJF35JByyqY0IqWS8G+k6XeNBXafkz1iTAa52ddQYb3xjAsr4dmzT2fRf04PpfvIMs1iJ5cFLdsLmDPSJPrx+dkXPbuxMcmpyW8cooqWCSCl1GdEnj5TQjJmkyTJhluwHtKXDrrDk78VAyx3BCdbn5zEzGiAwymD2Ms=
+  file_glob: true
   file: releases/*.zip
+  skip_cleanup: true
   on:
     repo: IBM-UrbanCode/Siebel-UCD
