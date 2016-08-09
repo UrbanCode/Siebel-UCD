@@ -37,8 +37,8 @@
         <property name="lib.test.dir"           value="${lib.dir}/test" />
         <property name="releases.dir"           value="${basedir}/releases" />
         <property name="releases.report.dir"    value="${releases.dir}/report" />
-
         
+
         <property name="version" value="dev" />
         <property name="plugin" value="Siebel-UCD" />
         <property name="pluginDist" value="${releases.dir}/${plugin}-v${version}.zip" />
@@ -113,6 +113,7 @@
             <copy todir="${build.plugin.dir}/doc">
                 <fileset dir="${doc.dir}">
                     <include name="HowTo.html" />
+                    <include name="UCD Siebel Plugin DesignDocument.docx" />
                 </fileset>
             </copy>
 
@@ -127,6 +128,7 @@
 
              <!-- Copy Classes -->
             <mkdir dir="${build.plugin.dir}/classes"/>
+            <mkdir dir="${lib.build.classes.dir}"/>
             <copy todir="${build.plugin.dir}/classes">
                 <!-- Groovy -->
                 <fileset dir="${src.main.groovy.dir}">
@@ -151,9 +153,11 @@
         <!-- CLEAN TARGET                                        -->
         <!-- =================================================== -->
         <target name="clean">
-            <delete dir="build" />
-            <mkdir dir="build" />
+            <delete dir="${build.dir}" />
+            <mkdir dir="${build.dir}" />
             <delete file="${pluginDist}" />
+            <delete dir="${lib.test.java.dir}" />
+            <delete dir="${lib.build.classes.dir}" />
         </target>
 
         <!-- =================================================== -->
