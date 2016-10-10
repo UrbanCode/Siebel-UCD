@@ -1,12 +1,11 @@
 /**
- * © Copyright IBM Corporation 2015, 2016.
+ * Â© Copyright IBM Corporation 2015, 2016.
  * This is licensed under the following license.
  * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
  * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
 import com.urbancode.air.AirPluginTool;
 import com.urbancode.air.CommandHelper;
-import com.urbancode.air.ExitCodeException;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -251,7 +250,7 @@ try
 {
 	ch.runCommand("Applying Action on Server", scriptArgs);
 }
-catch (ExitCodeException e)
+catch (Exception e)
 {
 	cleanUp.call()
 	println(myName+": ["+e.getMessage()+"]");
