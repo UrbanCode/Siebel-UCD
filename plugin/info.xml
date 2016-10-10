@@ -130,7 +130,7 @@
 	  <release-note plugin-version="4">
         GitHub Community Release
 	  </release-note>
-	  <release-note plugin-version="4">
+	  <release-note plugin-version="5">
 		  <p>Fixed java.lang.IncompatibleClassChangeError</p>
 	  </release-note>
     
