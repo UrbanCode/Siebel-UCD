@@ -26,7 +26,7 @@ This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclip
 
 ### History
     Version 5
-        Community GitHub Release
+        Fixed java.lang.IncompatibleClassChangeError
     Version 4
         Community GitHub Release
 
