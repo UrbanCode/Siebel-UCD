@@ -25,6 +25,8 @@ This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclip
     http://www.ibm.com/support/knowledgecenter/SSEP7J_10.2.0/com.ibm.swg.ba.cognos.vvm_user_guide.10.2.0.doc/t_vvm_user_siebel_jars_install.html
 
 ### History
+    Version 5
+        Community GitHub Release
     Version 4
         Community GitHub Release
 
@@ -32,11 +34,10 @@ This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclip
 
 1. Expand the Groovy project that you checked-out from example template.
 2. Open build.xml file and execute it as an Ant Build operation (Run As -> Ant Build)
-3. The built plugin is located at releases/UCDSiebelPlugin_v<version>.zip
+3. The built plugin is located at releases/Siebel-UCD-v<version>.dev.zip
 
 ### How to build the plugin from command line:
 
 1. Navigate to the base folder of the project through command line.
 2. Make sure that there is build.xml file there, and then execute 'ant' command.
-3. The built plugin is located at releases/UCDSiebelPlugin_vdev.zip
-Note: Edit the Build.xml to change the version 'dev' to a release number.
+3. The built plugin is located at releases/Siebel-UCD-v<version>.dev.zip

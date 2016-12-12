@@ -19,11 +19,14 @@
     <dependencies>
         <!-- Runtime Dependencies -->
         <!-- http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.ibm.urbancode.plugins%22 -->
-        <dependency org="com.ibm.urbancode.plugins" name="groovy-plugin-utils" rev="1.0" transitive="false" conf="default->default"/>
+        <dependency org="com.ibm.urbancode.plugins" name="groovy-plugin-utils" rev="1.2" transitive="false" conf="default->default"/>
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency org="com.google.code.gson" name="gson" rev="2.2.4" transitive="false" conf="default->default"/>
 
-        
+        <!-- Build Dependencies -->
+        <!-- http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.ibm.urbancode.plugins%22 -->
+        <dependency org="com.ibm.urbancode.plugins" name="groovy-plugin-utils" rev="1.2" transitive="true" conf="build->default"/>
+
         <!-- Test Dependencies -->
         <!-- http://search.maven.org/#artifactdetails%7Cjunit%7Cjunit%7C4.11%7Cjar -->
         <dependency org="junit" name="junit" rev="4.11" transitive="false"  conf="test->default"/>

@@ -4,10 +4,10 @@ rvm:
 install:
   - ant install-ivy -DfailIvy=false
 before_script:
-  - export VERSION=${TRAVIS_TAG}.${TRAVIS_COMMIT:0:7}
+  - export BUILD_LIFE=${TRAVIS_COMMIT:0:7}
   - ant run-tests -Dcompile.no=y
 script:
-  - ant -Dcompile.no=y -Dversion=${VERSION}
+  - ant -Dcompile.no=y -DbuildLife=${BUILD_LIFE}
 jdk:
   - oraclejdk8
   - oraclejdk7
