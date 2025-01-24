@@ -3,7 +3,7 @@
  */
 import com.ibm.gr.urbancode.plugin.siebel.SiebelJavaDataBeanWrapper;
 import com.ibm.gr.urbancode.plugin.siebel.UCDSiebelUtility;
-import com.urbancode.air.AirPluginTool;
+import com.ibm.gr.urbancode.plugin.siebel.AirPluginTool;
 import com.urbancode.air.CommandHelper;
 import com.siebel.data.*;
 

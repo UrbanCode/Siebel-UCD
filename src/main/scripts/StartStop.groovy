@@ -4,7 +4,7 @@
  * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
  * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
-import com.urbancode.air.AirPluginTool;
+import com.ibm.gr.urbancode.plugin.siebel.AirPluginTool;
 import com.urbancode.air.CommandHelper;
 import java.util.Date;
 import java.text.DateFormat;

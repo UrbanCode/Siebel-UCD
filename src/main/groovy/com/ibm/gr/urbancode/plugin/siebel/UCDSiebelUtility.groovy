@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2015.
+ * (c) Copyright IBM Corporation 2015.
  * This is licensed under the following license.
  * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
  * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
@@ -10,7 +10,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import com.ibm.gr.urbancode.plugin.siebel.SiebelJavaDataBeanWrapper;
-import com.urbancode.air.AirPluginTool;
+import com.ibm.gr.urbancode.plugin.siebel.AirPluginTool;
 import com.urbancode.air.CommandHelper;
 import com.siebel.data.*;
 /*
