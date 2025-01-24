@@ -161,7 +161,7 @@
       	<property-ui default-value="${p:SiebelPass}" description="Siebel Admin User password." hidden="true" label="SiebelPass" type="secureBox"/>
       </property>
       <property name="Action" required="true">
-      	<property-ui default-value="Import" description="What action should be used for the Wokflow Admin Service?" label="Choose Action Method" type="selectBox"/>
+      	<property-ui default-value="Deploy" description="What action should be used for the Wokflow Admin Service?" label="Choose Action Method" type="selectBox"/>
       	<value label="Export">Export</value>
       	<value label="Activate">Activate</value>
       	<value label="Deploy">Deploy</value>
