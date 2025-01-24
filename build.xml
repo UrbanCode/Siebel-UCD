@@ -180,7 +180,7 @@
             <!-- Installation -->
             <property name="antHome" value="${user.home}${file.separator}.ant"/>
             <mkdir dir="${antHome}${file.separator}lib"/>
-            <get dest="${antHome}${file.separator}lib${file.separator}ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.3.0/ivy-2.3.0.jar"/>
+            <get dest="${antHome}${file.separator}lib${file.separator}ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.5.3/ivy-2.5.3.jar"/>
             <echo message="SUCCESS! Ivy has been installed in ${antHome}." />
 
             <!-- Determine whether to continue or fail -->

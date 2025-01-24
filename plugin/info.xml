@@ -132,6 +132,7 @@
 	  </release-note>
 	  <release-note plugin-version="5">
 		  <p>Fixed java.lang.IncompatibleClassChangeError</p>
+        Fixed issue with Groovy 3.x
 	  </release-note>
 
   </release-notes>
